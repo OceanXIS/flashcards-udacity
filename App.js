@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 
-import Decks from './src/components/decks'
 import Deck from './src/components/deck'
-
+import Decks from './src/components/decks'
+import NewDeck from './src/components/new-deck'
 
 const Tabs = TabNavigator({
   Decks: {
     screen: Decks,
+  },
+  NewDeck: {
+    screen: NewDeck,
   },
 }, {
   navigationOptions: {
@@ -29,6 +32,14 @@ const MainNavigator = StackNavigator({
 })
 
 class App extends Component {
+  async componentDidMount () {
+    await Expo.Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
+    })
+  }
+
   render() {
     return  (
       <View style={styles.container}>
