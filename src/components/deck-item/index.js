@@ -1,15 +1,15 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 
-const DeckItem = ({ item }) => (
+const DeckItem = ({ deck, navigation }) => (
   <View style={styles.container}>
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate('Deck', { deck })}>
       <View style={styles.container}>
         <Text style={styles.deckTitle}>
-          {item.item.title}
+          {deck.title}
         </Text>
         <Text style={styles.deckTotal}>
-          {item.item.totalCards} {item.item.totalCards === 1 ? 'Card' : 'Cards'}
+          {deck.totalCards} {deck.totalCards === 1 ? 'Card' : 'Cards'}
         </Text>
       </View>
     </TouchableOpacity>

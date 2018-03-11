@@ -13,15 +13,15 @@ const decksList = [
   { id: '6', title: 'Spanish', totalCards: 39 },
 ]
 
-const Decks = () => (
+const Decks = ({ navigation }) => (
   <View style={styles.container}>
     <FlatList
       keyExtractor={(item, index) => index}
       data={decksList}
-      renderItem={deck => {
+      renderItem={({ item }) => {
         return (
           <View>
-            <DeckItem item={deck} />
+            <DeckItem navigation={navigation} deck={item} />
             <Hr />
           </View>
         )
