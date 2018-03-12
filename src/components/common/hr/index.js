@@ -8,7 +8,7 @@ const Hr = () => (
 const styles = StyleSheet.create({
   hr: {
     borderBottomColor: 'black',
-    borderBottomWidth: 1,
+    borderBottomWidth: 1
   }
 })
 

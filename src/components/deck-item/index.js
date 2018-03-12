@@ -18,20 +18,20 @@ const DeckItem = ({ deck, navigation }) => (
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   deckTitle: {
     padding: 20,
     paddingBottom: 5,
-    fontSize: 20,
+    fontSize: 20
   },
   deckTotal: {
     paddingBottom: 20,
     fontSize: 14,
     color: 'gray'
-  },
+  }
 })
 
 export default DeckItem

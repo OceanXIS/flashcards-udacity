@@ -14,7 +14,7 @@ import {
   Label
 } from 'native-base'
 
-class NewDeck extends PureComponent {
+class NewCard extends PureComponent {
   constructor () {
     super()
     this.state = {
@@ -29,14 +29,18 @@ class NewDeck extends PureComponent {
             <CardItem>
               <Body>
                 <Text>
-                  What's the title of your new deck?
+                  Enter the data of the card.
                 </Text>
               </Body>
             </CardItem>
           </Card>
           <Form>
             <Item style={styles.input} floatingLabel>
-              <Label>Title</Label>
+              <Label>Question</Label>
+              <Input />
+            </Item>
+            <Item style={styles.input} floatingLabel>
+              <Label>Anser</Label>
               <Input />
             </Item>
           </Form>
@@ -55,4 +59,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+export default NewCard
