@@ -1,8 +1,15 @@
-import React from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
-
-import DeckItem from '../deck-item'
-import Hr from '../common/hr'
+import React, { PureComponent } from 'react'
+import { TouchableNativeFeedback } from 'react-native'
+import {
+  Container,
+  Content,
+  List,
+  ListItem,
+  Text,
+  Body,
+  Icon,
+  Right
+} from 'native-base'
 
 const decksList = [
   { id: '1', title: 'PHP', totalCards: 10 },
@@ -13,28 +20,33 @@ const decksList = [
   { id: '6', title: 'Spanish', totalCards: 39 }
 ]
 
-const Decks = ({ navigation }) => (
-  <View style={styles.container}>
-    <FlatList
-      keyExtractor={(item, index) => index}
-      data={decksList}
-      renderItem={({ item }) => {
-        return (
-          <View>
-            <DeckItem navigation={navigation} deck={item} />
-            <Hr />
-          </View>
-        )
-      }}
-    />
-  </View>
-)
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 10
+class Decks extends PureComponent {
+  render() {
+    const { navigation } = this.props
+    return (
+      <Container>
+        <Content>
+          <List button>
+            {decksList.map((deck, index) => (
+              <ListItem
+                useForeground
+                key={index}
+                onPress={() => navigation.navigate('Deck', { deck })}
+              >
+                <Body>
+                  <Text>{deck.title}</Text>
+                  <Text note>{deck.totalCards} Cards</Text>
+                </Body>
+                <Right>
+                  <Icon name="arrow-forward" />
+                </Right>
+              </ListItem>
+            ))}
+          </List>
+        </Content>
+      </Container>
+    );
   }
-})
+}
 
 export default Decks

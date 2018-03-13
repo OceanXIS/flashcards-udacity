@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { Container, Header, Content, Card, CardItem, Text, Icon, Right, Button, List, ListItem, Body  } from 'native-base'
 
 class Deck extends PureComponent {
   constructor () {
@@ -17,73 +18,40 @@ class Deck extends PureComponent {
     const { deck } = this.state
     const { navigation } = this.props
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{deck.title}</Text>
-          <Text style={styles.cards}>{deck.totalCards} cards</Text>
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.buttonAdd}
-            onPress={() => navigation.navigate('NewCard')}>
-            <Text style={styles.buttonAddText}>Add Card</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonQuiz}
-            onPress={() => navigation.navigate('QuizDeck')}>
-            <Text style={styles.buttonQuizText}>Start Quiz</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Container>
+        <Content>
+          <List button>
+            <ListItem>
+              <Body>
+                <Text>{deck.title}</Text>
+                <Text note>{deck.totalCards} Cards</Text>
+              </Body>
+            </ListItem>
+          </List>
+          <Button
+            full
+            style={styles.input}
+            onPress={() => navigation.navigate('NewCard')}
+            >
+            <Text>Add Card</Text>
+          </Button>
+          <Button
+            full
+            style={styles.input}
+            onPress={() => navigation.navigate('NewCard')}
+          >
+            <Text>Start Quiz</Text>
+          </Button>
+        </Content>
+      </Container>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+  input: {
+    margin: 10
   },
-  header: {
-    flex: 2,
-    marginTop: 20,
-    alignItems: 'center'
-  },
-  title: {
-    fontSize: 30
-  },
-  cards: {
-    fontSize: 15,
-    color: 'gray'
-  },
-  buttonContainer: {
-    flex: 1
-  },
-  buttonAdd: {
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    margin: 8,
-    padding: 10,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    width: 100
-  },
-  buttonAddText: {
-    fontSize: 16,
-    color: '#000',
-    textAlign: 'center'
-  },
-  buttonQuiz: {
-    backgroundColor: '#000',
-    borderRadius: 4,
-    margin: 8,
-    padding: 10,
-    width: 100
-  },
-  buttonQuizText: {
-    fontSize: 16,
-    color: '#fff',
-    textAlign: 'center'
-  }
 })
 
 export default Deck

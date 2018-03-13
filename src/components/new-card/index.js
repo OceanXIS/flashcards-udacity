@@ -40,7 +40,7 @@ class NewCard extends PureComponent {
               <Input />
             </Item>
             <Item style={styles.input} floatingLabel>
-              <Label>Anser</Label>
+              <Label>Answer</Label>
               <Input />
             </Item>
           </Form>
