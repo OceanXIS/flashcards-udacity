@@ -1,12 +1,22 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
-import { Container, Header, Content, Card, CardItem, Text, Icon, Right, Button, List, ListItem, Body  } from 'native-base'
+import {
+  Container,
+  Content,
+  Text,
+  Button,
+  List,
+  ListItem,
+  Body
+} from 'native-base'
 
-class Deck extends PureComponent {
+class Deck extends Component {
   constructor () {
     super()
     this.state = {
-      deck: {}
+      deck: {
+        questions: []
+      }
     }
   }
 
@@ -23,8 +33,8 @@ class Deck extends PureComponent {
           <List button>
             <ListItem>
               <Body>
-                <Text>{deck.title}</Text>
-                <Text note>{deck.totalCards} Cards</Text>
+                <Text>{deck && deck.title}</Text>
+                <Text note>{deck.questions.length} Cards</Text>
               </Body>
             </ListItem>
           </List>
@@ -51,7 +61,7 @@ class Deck extends PureComponent {
 const styles = StyleSheet.create({
   input: {
     margin: 10
-  },
+  }
 })
 
 export default Deck

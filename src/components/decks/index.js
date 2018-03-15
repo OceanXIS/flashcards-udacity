@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { TouchableNativeFeedback } from 'react-native'
 import {
   Container,
   Content,
@@ -11,23 +10,38 @@ import {
   Right
 } from 'native-base'
 
-const decksList = [
-  { id: '1', title: 'PHP', totalCards: 10 },
-  { id: '2', title: 'JavaScript', totalCards: 4 },
-  { id: '3', title: 'English', totalCards: 20 },
-  { id: '4', title: 'German', totalCards: 89 },
-  { id: '5', title: 'French', totalCards: 400 },
-  { id: '6', title: 'Spanish', totalCards: 39 }
-]
+import * as Api from '../../utils/api'
 
 class Decks extends PureComponent {
-  render() {
+  constructor () {
+    super()
+    this.state = {
+      decks: []
+    }
+  }
+
+  componentDidMount () {
+    Api.getDecks()
+      .then(data => this.setDecks(data))
+  }
+
+  setDecks (data) {
+    const decks = Object.keys(data)
+      .map(item => ({
+        ...data[item]
+      }))
+
+    this.setState({ decks })
+  }
+
+  render () {
     const { navigation } = this.props
+    const { decks } = this.state
     return (
       <Container>
         <Content>
           <List button>
-            {decksList.map((deck, index) => (
+            {decks.map((deck, index) => (
               <ListItem
                 useForeground
                 key={index}
@@ -35,17 +49,17 @@ class Decks extends PureComponent {
               >
                 <Body>
                   <Text>{deck.title}</Text>
-                  <Text note>{deck.totalCards} Cards</Text>
+                  <Text note>{deck.questions.length} Cards</Text>
                 </Body>
                 <Right>
-                  <Icon name="arrow-forward" />
+                  <Icon name='arrow-forward' />
                 </Right>
               </ListItem>
             ))}
           </List>
         </Content>
       </Container>
-    );
+    )
   }
 }
 
