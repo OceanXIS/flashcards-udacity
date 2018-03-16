@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
+import PubSub from 'pubsub-js'
 import {
   Container,
   Content,
@@ -14,14 +15,29 @@ import {
   Label
 } from 'native-base'
 
+import * as Api from '../../utils/api'
+
 class NewDeck extends PureComponent {
   constructor () {
     super()
     this.state = {
-      deck: {}
+      title: ''
     }
   }
+
+  handleSubmit = () => {
+    if (this.state.title) {
+      return Api.saveDeckTitle(this.state.title)
+        .then(() => {
+          PubSub.publish('UPDATE_DECKS')
+          this.setState({ title: '' })
+          alert('Deck added successfully')
+        })
+    }
+  }
+
   render () {
+    const { title } = this.state
     return (
       <Container>
         <Content>
@@ -37,12 +53,12 @@ class NewDeck extends PureComponent {
           <Form>
             <Item style={styles.input} floatingLabel>
               <Label>Title</Label>
-              <Input />
+              <Input onChangeText={title => this.setState({ title })} value={title} />
             </Item>
+            <Button full style={styles.input} onPress={this.handleSubmit}>
+              <Text>Save</Text>
+            </Button>
           </Form>
-          <Button full style={styles.input}>
-            <Text>Save</Text>
-          </Button>
         </Content>
       </Container>
     )

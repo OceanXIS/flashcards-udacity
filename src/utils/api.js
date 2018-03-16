@@ -9,6 +9,15 @@ export const getDecks = () => {
 
 export const getDeck = () => {}
 
-export const saveDeckTitle = () => {}
+export const saveDeckTitle = title => {
+  return AsyncStorage.mergeItem(
+    KEY, JSON.stringify({
+      [title]: {
+        title,
+        questions: []
+      }
+    })
+  )
+}
 
 export const addCardToDeck = () => {}

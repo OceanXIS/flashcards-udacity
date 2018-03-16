@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
+import PubSub from 'pubsub-js'
 import {
   Container,
   Content,
@@ -12,7 +13,7 @@ import {
 
 import * as Api from '../../utils/api'
 
-class Decks extends PureComponent {
+class Decks extends Component {
   constructor () {
     super()
     this.state = {
@@ -21,6 +22,13 @@ class Decks extends PureComponent {
   }
 
   componentDidMount () {
+    PubSub.subscribe('UPDATE_DECKS', () => {
+      this.getDecks()
+    })
+    this.getDecks()
+  }
+
+  getDecks () {
     Api.getDecks()
       .then(data => this.setDecks(data))
   }
