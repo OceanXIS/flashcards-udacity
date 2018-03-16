@@ -28,5 +28,21 @@
     "react": "16.2.0",
     "react-native": "0.52.0",
     "react-navigation": "^1.5.1"
+  },
+  "standard": {
+    "globals": [
+      "fetch",
+      "localStorage",
+      "it",
+      "describe",
+      "expect",
+      "shallow",
+      "mount",
+      "jest",
+      "expect",
+      "beforeEach",
+      "afterEach",
+      "alert"
+    ]
   }
 }

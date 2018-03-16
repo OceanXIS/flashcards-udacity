@@ -23,9 +23,10 @@ class NewDeck extends PureComponent {
     this.state = {
       title: ''
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit = () => {
+  handleSubmit () {
     if (this.state.title) {
       return Api.saveDeckTitle(this.state.title)
         .then(() => {
@@ -34,6 +35,7 @@ class NewDeck extends PureComponent {
           alert('Deck added successfully')
         })
     }
+    alert('Insert the title of the deck')
   }
 
   render () {
