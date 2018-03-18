@@ -11,40 +11,18 @@ import {
   Right
 } from 'native-base'
 
-import * as Api from '../../utils/api'
+import { connect } from 'react-redux'
+import { getDecks } from '../../redux-flow/reducers/decks/actions-creators'
 
 class Decks extends Component {
-  constructor () {
-    super()
-    this.state = {
-      decks: []
-    }
-  }
 
   componentDidMount () {
-    PubSub.subscribe('UPDATE_DECKS', () => {
-      this.getDecks()
-    })
-    this.getDecks()
-  }
-
-  getDecks () {
-    Api.getDecks()
-      .then(data => this.setDecks(data))
-  }
-
-  setDecks (data) {
-    const decks = Object.keys(data)
-      .map(item => ({
-        ...data[item]
-      }))
-
-    this.setState({ decks })
+    this.props.getDecks()
   }
 
   render () {
     const { navigation } = this.props
-    const { decks } = this.state
+    const { decks } = this.props
     return (
       <Container>
         <Content>
@@ -71,4 +49,20 @@ class Decks extends Component {
   }
 }
 
-export default Decks
+function normalizeDecks(data) {
+  return Object.keys(data)
+    .map(item => ({
+      ...data[item]
+    }))
+}
+
+const mapStateToProps = state => ({
+  decks: normalizeDecks(state.decks)
+})
+
+const mapDispatchToProps = { getDecks }
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Decks)

@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 import MainNavigator from './src/components/main-navigator'
+import { Provider } from 'react-redux'
+
+import configureStore from './src/redux-flow/configure-store'
+
+const store = configureStore()
 
 class App extends Component {
   /* eslint-disable */
@@ -15,9 +20,11 @@ class App extends Component {
 
   render () {
     return (
-      <View style={styles.container}>
-        <MainNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <MainNavigator />
+        </View>
+      </Provider>
     )
   }
 }

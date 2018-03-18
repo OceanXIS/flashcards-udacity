@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
-import PubSub from 'pubsub-js'
 import {
   Container,
   Content,
@@ -30,7 +29,6 @@ class NewDeck extends PureComponent {
     if (this.state.title) {
       return Api.saveDeckTitle(this.state.title)
         .then(() => {
-          PubSub.publish('UPDATE_DECKS')
           this.setState({ title: '' })
           alert('Deck added successfully')
         })

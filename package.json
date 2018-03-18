@@ -24,10 +24,12 @@
   "dependencies": {
     "expo": "^25.0.0",
     "native-base": "^2.3.10",
-    "pubsub-js": "^1.6.0",
     "react": "16.2.0",
     "react-native": "0.52.0",
-    "react-navigation": "^1.5.1"
+    "react-navigation": "^1.5.1",
+    "react-redux": "^5.0.7",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   },
   "standard": {
     "globals": [
