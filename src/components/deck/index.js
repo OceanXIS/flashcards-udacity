@@ -41,7 +41,7 @@ class Deck extends Component {
           <Button
             full
             style={styles.input}
-            onPress={() => navigation.navigate('NewCard')}
+            onPress={() => navigation.navigate('NewCard', { deckTitle: deck.title })}
             >
             <Text>Add Card</Text>
           </Button>

@@ -20,4 +20,18 @@ export const saveDeckTitle = title => {
   )
 }
 
-export const addCardToDeck = () => {}
+export const addCardToDeck = async (card, deckTitle) => {
+  const decks = await getDecks()
+  if (decks.hasOwnProperty(deckTitle)) {
+    return AsyncStorage.mergeItem(KEY,
+      JSON.stringify({
+        [deckTitle]: {
+          questions: [
+            ...decks[deckTitle].questions,
+            card
+          ]
+        }
+      })
+    )
+  }
+}
