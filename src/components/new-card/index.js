@@ -31,10 +31,10 @@ class NewCard extends Component {
     this.setState({ deckTitle: this.props.navigation.state.params.deckTitle })
   }
 
-  handleSubmit() {
+  handleSubmit () {
     const { question, answer, deckTitle } = this.state
     if (question && answer) {
-      return Api.addCardToDeck({ question, answer}, deckTitle)
+      return Api.addCardToDeck({ question, answer }, deckTitle)
         .then(() => alert('Card added successfully'))
     }
 

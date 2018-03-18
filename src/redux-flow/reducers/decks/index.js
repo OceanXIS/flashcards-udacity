@@ -8,7 +8,10 @@ const decks = createReducer({}, {
   }),
   [actions.ADD_DECK]: (state, action) => ({
     ...state,
-    ...action.payload
+    [action.payload]: {
+      title: action.payload,
+      questions: []
+    }
   })
 })
 

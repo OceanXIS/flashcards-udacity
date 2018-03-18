@@ -1,5 +1,6 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 import {
   Container,
   Content,
@@ -14,22 +15,24 @@ import {
   Label
 } from 'native-base'
 
-import * as Api from '../../utils/api'
+import { addDeck } from '../../redux-flow/reducers/decks/actions-creators'
 
-class NewDeck extends PureComponent {
+class NewDeck extends Component {
   constructor () {
     super()
     this.state = {
-      title: ''
+      title: '',
+      isSaving: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit () {
+    this.setState({ isSaving: true })
     if (this.state.title) {
-      return Api.saveDeckTitle(this.state.title)
+      return this.props.addDeck(this.state.title)
         .then(() => {
-          this.setState({ title: '' })
+          this.setState({ title: '', isSaving: false })
           alert('Deck added successfully')
         })
     }
@@ -37,7 +40,7 @@ class NewDeck extends PureComponent {
   }
 
   render () {
-    const { title } = this.state
+    const { title, isSaving } = this.state
     return (
       <Container>
         <Content>
@@ -55,7 +58,7 @@ class NewDeck extends PureComponent {
               <Label>Title</Label>
               <Input onChangeText={title => this.setState({ title })} value={title} />
             </Item>
-            <Button full style={styles.input} onPress={this.handleSubmit}>
+            <Button full style={styles.input} onPress={this.handleSubmit} disabled={isSaving}>
               <Text>Save</Text>
             </Button>
           </Form>
@@ -71,4 +74,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewDeck
+export default connect(null, { addDeck })(NewDeck)

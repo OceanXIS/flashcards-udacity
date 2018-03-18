@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PubSub from 'pubsub-js'
 import {
   Container,
   Content,
@@ -15,7 +14,6 @@ import { connect } from 'react-redux'
 import { getDecks } from '../../redux-flow/reducers/decks/actions-creators'
 
 class Decks extends Component {
-
   componentDidMount () {
     this.props.getDecks()
   }
@@ -49,7 +47,7 @@ class Decks extends Component {
   }
 }
 
-function normalizeDecks(data) {
+function normalizeDecks (data) {
   return Object.keys(data)
     .map(item => ({
       ...data[item]
