@@ -33,7 +33,7 @@ class Decks extends Component {
               >
                 <Body>
                   <Text>{deck.title}</Text>
-                  <Text note>{deck.questions.length} Cards</Text>
+                  <Text note>{deck.questions && deck.questions.length} Cards</Text>
                 </Body>
                 <Right>
                   <Icon name='arrow-forward' />

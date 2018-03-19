@@ -2,7 +2,8 @@ import { AsyncStorage } from 'react-native'
 
 export const KEY = 'flash-cards'
 
-export const getDecks = () => {
+export const getDecks = async () => {
+  AsyncStorage.clear()
   return AsyncStorage.getItem(KEY)
     .then(data => JSON.parse(data))
 }
@@ -31,5 +32,15 @@ export const addCardToDeck = async (card, deckTitle) => {
         }
       })
     )
+  }
+}
+
+export const removeDeck = async deckTitle => {
+  const decks = await getDecks()
+  if (decks && decks.hasOwnProperty(deckTitle)) {
+    const newdecks = { ...decks }
+    delete newdecks[deckTitle]
+    await AsyncStorage.removeItem(KEY)
+    return AsyncStorage.mergeItem(KEY, JSON.stringify(newdecks))
   }
 }

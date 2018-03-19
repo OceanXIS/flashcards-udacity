@@ -16,3 +16,11 @@ export const addDeck = title => dispatch => (
       payload: title
     }))
 )
+
+export const removeDeck = title => dispatch => (
+  API.removeDeck(title)
+    .then(() => dispatch({
+      type: actions.REMOVE_DECK,
+      payload: title
+    }))
+)

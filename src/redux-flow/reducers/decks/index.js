@@ -12,7 +12,12 @@ const decks = createReducer({}, {
       title: action.payload,
       questions: []
     }
-  })
+  }),
+  [actions.REMOVE_DECK]: (state, action) => {
+    const decks = { ...state }
+    delete decks[action.payload]
+    return decks
+  }
 })
 
 export default decks
