@@ -17,6 +17,19 @@ const decks = createReducer({}, {
     const decks = { ...state }
     delete decks[action.payload]
     return decks
+  },
+  [actions.ADD_CARD]: (state, action) => {
+    const { card, deckTitle } = action.payload
+    return {
+      ...state,
+      [deckTitle]: {
+        title: state[deckTitle].title,
+        questions: [
+          ...state[deckTitle].questions,
+          card
+        ]
+      }
+    }
   }
 })
 

@@ -24,3 +24,14 @@ export const removeDeck = title => dispatch => (
       payload: title
     }))
 )
+
+export const addCard = (card, deckTitle) => dispatch => (
+  API.addCardToDeck(card, deckTitle)
+    .then(() => dispatch({
+      type: actions.ADD_CARD,
+      payload: {
+        card,
+        deckTitle
+      }
+    }))
+)

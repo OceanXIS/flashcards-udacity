@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import {
   Container,
@@ -14,7 +15,7 @@ import {
   Label
 } from 'native-base'
 
-import * as Api from '../../utils/api'
+import { addCard } from '../../redux-flow/reducers/decks/actions-creators'
 
 class NewCard extends Component {
   constructor () {
@@ -22,7 +23,8 @@ class NewCard extends Component {
     this.state = {
       deckTitle: '',
       question: '',
-      answer: ''
+      answer: '',
+      isSaving: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -34,14 +36,24 @@ class NewCard extends Component {
   handleSubmit () {
     const { question, answer, deckTitle } = this.state
     if (question && answer) {
-      return Api.addCardToDeck({ question, answer }, deckTitle)
-        .then(() => alert('Card added successfully'))
+      this.setState({ isSaving: true })
+      return this.props
+        .addCard({ question, answer }, deckTitle)
+        .then(() => {
+          this.setState({
+            deckTitle: '',
+            question: '',
+            answer: '',
+            isSaving: false
+          })
+          alert('Card added successfully')
+        })
     }
-
     alert('Insert the question and the answer')
   }
 
   render () {
+    const { question, answer, isSaving } = this.state
     return (
       <Container>
         <Content>
@@ -57,14 +69,19 @@ class NewCard extends Component {
           <Form>
             <Item floatingLabel style={styles.input}>
               <Label>Question</Label>
-              <Input onChangeText={question => this.setState({ question })} />
+              <Input onChangeText={question => this.setState({ question })} value={question} />
             </Item>
             <Item floatingLabel style={styles.input}>
               <Label>Answer</Label>
-              <Input onChangeText={answer => this.setState({ answer })} />
+              <Input onChangeText={answer => this.setState({ answer })} value={answer} />
             </Item>
           </Form>
-          <Button full style={styles.input} onPress={this.handleSubmit}>
+          <Button
+            full
+            style={styles.input}
+            onPress={this.handleSubmit}
+            disabled={isSaving}
+          >
             <Text>Save</Text>
           </Button>
         </Content>
@@ -79,4 +96,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default NewCard
+export default connect(null, { addCard })(NewCard)
