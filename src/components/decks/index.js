@@ -29,7 +29,7 @@ class Decks extends Component {
               <ListItem
                 useForeground
                 key={index}
-                onPress={() => navigation.navigate('Deck', { deck })}
+                onPress={() => navigation.navigate('Deck', { deckTitle: deck.title })}
               >
                 <Body>
                   <Text>{deck.title}</Text>

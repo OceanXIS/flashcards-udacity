@@ -18,14 +18,13 @@ class Deck extends Component {
     super()
     this.state = {
       isRemoving: false,
-      deck: {
-        questions: []
-      }
+      deckTitle: ''
     }
   }
 
   componentDidMount () {
-    this.setState({ deck: this.props.navigation.state.params.deck })
+    const { deckTitle } = this.props.navigation.state.params
+    this.setState({ deckTitle })
   }
 
   handleDelete (title) {
@@ -46,8 +45,11 @@ class Deck extends Component {
   }
 
   render () {
-    const { deck, isRemoving } = this.state
-    const { navigation } = this.props
+    const { deckTitle, isRemoving } = this.state
+    const { navigation, decks } = this.props
+
+    const deck = decks[deckTitle] || { title: '', questions: [] }
+
     return (
       <Container>
         <Content>
@@ -96,4 +98,11 @@ const styles = StyleSheet.create({
   }
 })
 
-export default connect(null, { removeDeck })(Deck)
+const mapStateToProps = state => ({
+  decks: state.decks
+})
+
+export default connect(
+  mapStateToProps,
+  { removeDeck }
+)(Deck)
