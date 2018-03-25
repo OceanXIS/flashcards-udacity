@@ -72,7 +72,7 @@ class Deck extends Component {
           <Button
             full
             style={styles.input}
-            onPress={() => navigation.navigate('NewCard')}
+            onPress={() => navigation.navigate('Quiz', { deckTitle: deck.title })}
             disabled={isRemoving}
           >
             <Text>Start Quiz</Text>
