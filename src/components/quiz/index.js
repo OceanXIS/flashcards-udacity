@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
 import {
   Container,
@@ -12,30 +13,43 @@ import {
   Card,
   CardItem,
   H2,
-  Left
+  H3,
+  Left,
+  Right
 } from 'native-base'
 
 import If from '../common/if'
-
-const cards = [
-  { question: 'Hello, I am very good, how are you?', answer: 'I am good too, thanks.' },
-  { question: 'Hello, I am very good, how are you?', answer: 'I am good too, thanks.' }
-]
+import Summary from './summary'
+import Question from './question'
+import Answer from './answer'
 
 class Quiz extends Component {
   constructor () {
     super()
     this.state = {
       deckTitle: '',
-      showAnswer: false
+      showAnswer: false,
+      showSummary: false,
+      cards: [],
+      cardIndex: 0,
+      totalCards: 0,
+      totalCorrectAnswers: 0,
     }
     this.showAnswer = this.showAnswer.bind(this)
     this.showQuestion = this.showQuestion.bind(this)
+    this.handleAnswer = this.handleAnswer.bind(this)
+    this.backToDeck = this.backToDeck.bind(this)
+    this.showSummaryOrNexQuestion = this.showSummaryOrNexQuestion.bind(this)
   }
 
   componentDidMount () {
     const { deckTitle } = this.props.navigation.state.params
-    this.setState({ deckTitle })
+    const questions = this.props.decks[deckTitle].questions
+    this.setState({
+      deckTitle,
+      cards: questions,
+      totalCards: questions.length
+    })
   }
 
   showAnswer () {
@@ -46,94 +60,79 @@ class Quiz extends Component {
     this.setState({ showAnswer: false })
   }
 
-  render () {
-    const { deckTitle } = this.state
-    const { navigation, decks } = this.props
+  handleAnswer (type) {
+    if (type === 'correct') {
+      this.setState({
+        totalCorrectAnswers: this.state.totalCorrectAnswers + 1,
+        cardIndex: this.state.cardIndex + 1,
+        showAnswer: false
+      })
+      this.showSummaryOrNexQuestion()
+      return
+    }
 
-    const deck = decks[deckTitle] || { title: '', questions: [] }
+    this.setState({
+      cardIndex: this.state.cardIndex + 1,
+      showAnswer: false
+    })
+
+    this.showSummaryOrNexQuestion()
+  }
+
+  showSummaryOrNexQuestion () {
+    const { cardIndex, totalCards } = this.state
+    if ((cardIndex + 1) >= totalCards ) {
+      this.setState({ showSummary: true, showAnswer: false })
+    }
+  }
+
+  backToDeck () {
+    const backAction = NavigationActions.back({ key: null })
+    this.props.navigation.dispatch(backAction)
+  }
+
+  restartQuiz () {
+    this.setState({
+      showSummary: false,
+      cardIndex: 0,
+      totalCorrectAnswers: 0
+    })
+  }
+
+  render () {
+    const { cardIndex, cards, totalCards, showAnswer,
+       showSummary, showQuestion } = this.state
+    const card = cards[cardIndex]
 
     return (
       <Container>
         <Content>
-          <If test={!this.state.showAnswer}>
-            <Card>
-              <CardItem header>
-                <Left>
-                  <Body>
-                    <Text>Question</Text>
-                    <Text note>1/10</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-              <CardItem>
-                <Body>
-                  <Text>
-                    <H2>Hello, I am very good, how are you?</H2>
-                  </Text>
-                </Body>
-              </CardItem>
-              <CardItem footer>
-                <Left>
-                  <Button transparent onPress={this.showAnswer}>
-                    <Text>Show Answer</Text>
-                  </Button>
-                </Left>
-              </CardItem>
-            </Card>
+          <If test={!showAnswer && !showSummary}>
+            <Question
+              cardIndex={cardIndex}
+              card={card}
+              totalCards={totalCards}
+              showAnswer={this.showAnswer}
+            />
           </If>
-
-          <If test={this.state.showAnswer}>
-            <Card>
-              <CardItem header>
-                <Left>
-                  <Body>
-                    <Text>Answer</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-              <CardItem>
-                <Body>
-                  <Text>
-                    <H2>Im really good.</H2>
-                  </Text>
-                </Body>
-              </CardItem>
-              <CardItem footer>
-                <Left>
-                  <Button transparent onPress={this.showQuestion}>
-                    <Text>Show Question</Text>
-                  </Button>
-                </Left>
-              </CardItem>
-            </Card>
-
-            <Button
-              full
-              success
-              style={styles.button}
-            >
-              <Text>Correct</Text>
-            </Button>
-            <Button
-              full
-              style={styles.button}
-              danger
-            >
-              <Text>Incorrect</Text>
-            </Button>
+          <If test={showAnswer && !showSummary}>
+            <Answer
+              card={card}
+              showQuestion={this.showQuestion}
+              handleAnswer={this.handleAnswer}
+            />
+          </If>
+          <If test={showSummary}>
+            <Summary
+              backToDeck={this.backToDeck}
+              restartQuiz={this.restartQuiz}
+            />
           </If>
         </Content>
       </Container>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  button: {
-    margin: 10
-  }
-})
-
 
 const mapStateToProps = state => ({
   decks: state.decks
