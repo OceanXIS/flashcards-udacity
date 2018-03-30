@@ -17,4 +17,8 @@ This is final assessment project for Udacity's React-Native course, where a mobi
     - `npm install`
     - `npm start`
 
-This Project was tested only in android plataform.
+## *Notes
+ * The standard style guide was used
+ * This project was tested only in android plataform
+
+
