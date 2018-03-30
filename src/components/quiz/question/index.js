@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import {
   Text,
@@ -41,5 +42,12 @@ const Question = ({
     </CardItem>
   </Card>
 )
+
+Question.propTypes = {
+  card: PropTypes.object.isRequired,
+  cardIndex: PropTypes.number.isRequired,
+  totalCards: PropTypes.number.isRequired,
+  showAnswer: PropTypes.func.isRequired
+}
 
 export default Question

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 
 import {
@@ -66,5 +67,11 @@ const styles = StyleSheet.create({
     margin: 10
   }
 })
+
+Answer.propTypes = {
+  card: PropTypes.object.isRequired,
+  showQuestion: PropTypes.func.isRequired,
+  handleAnswer: PropTypes.func.isRequired
+}
 
 export default Answer

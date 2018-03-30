@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import {
   Text,
@@ -40,5 +41,11 @@ const Summary = ({
     </CardItem>
   </Card>
 )
+
+Summary.propTypes = {
+  backToDeck: PropTypes.func.isRequired,
+  restartQuiz: PropTypes.func.isRequired,
+  percentageCorrectAnswers: PropTypes.number.isRequired
+}
 
 export default Summary
