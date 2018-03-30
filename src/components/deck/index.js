@@ -50,6 +50,7 @@ class Deck extends Component {
 
     const deck = decks[deckTitle] || { title: '', questions: [] }
     const noCards = deck.questions.length === 0
+    const totalCards = deck.questions.length
 
     return (
       <Container>
@@ -58,7 +59,9 @@ class Deck extends Component {
             <ListItem>
               <Body>
                 <Text>{deck && deck.title}</Text>
-                <Text note>{deck.questions.length} Cards</Text>
+                <Text note>
+                  {totalCards === 1 ? '1 Card' : `${totalCards} Cards`}
+                </Text>
               </Body>
             </ListItem>
           </List>
