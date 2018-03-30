@@ -11,12 +11,18 @@ import {
   Right
 } from 'native-base'
 
-const Summary = ({ backToDeck, restartQuiz }) => (
+const Summary = ({
+  backToDeck,
+  restartQuiz,
+  percentageCorrectAnswers
+}) => (
   <Card>
     <CardItem>
       <Body style={{ alignItems: 'center' }}>
         <Text>
-          <H2>89% Correct answers</H2>
+          <H2>
+            {percentageCorrectAnswers}% Correct answers
+          </H2>
         </Text>
       </Body>
     </CardItem>

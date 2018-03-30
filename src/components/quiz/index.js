@@ -79,6 +79,12 @@ class Quiz extends Component {
     })
   }
 
+  getPercentageCorrectAnswers = () => {
+    const { totalCorrectAnswers, totalCards } = this.state
+    const total = totalCorrectAnswers / totalCards * 100
+    return parseInt(total, 10)
+  }
+
   render () {
     const { cardIndex, cards, totalCards, showAnswer, showSummary } = this.state
     const card = cards[cardIndex]
@@ -105,6 +111,7 @@ class Quiz extends Component {
             <Summary
               backToDeck={this.backToDeck}
               restartQuiz={this.restartQuiz}
+              percentageCorrectAnswers={this.getPercentageCorrectAnswers()}
             />
           </If>
         </Content>
