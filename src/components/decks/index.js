@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import {
   Container,
   Content,
@@ -13,7 +13,7 @@ import {
 import { connect } from 'react-redux'
 import { getDecks } from '../../redux-flow/reducers/decks/actions-creators'
 
-class Decks extends Component {
+class Decks extends PureComponent {
   componentDidMount () {
     this.props.getDecks()
   }

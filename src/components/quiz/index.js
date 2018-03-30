@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import { Container, Content } from 'native-base'
@@ -10,7 +10,7 @@ import Answer from './answer'
 
 import { clearLocalNotification, setLocalNotification } from '../../utils/notification'
 
-class Quiz extends Component {
+class Quiz extends PureComponent {
   constructor () {
     super()
     this.state = {

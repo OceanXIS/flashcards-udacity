@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import {
@@ -17,7 +17,7 @@ import {
 
 import { addDeck } from '../../redux-flow/reducers/decks/actions-creators'
 
-class NewDeck extends Component {
+class NewDeck extends PureComponent {
   constructor () {
     super()
     this.state = {

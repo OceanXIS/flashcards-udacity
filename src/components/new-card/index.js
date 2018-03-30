@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import {
@@ -17,7 +17,7 @@ import {
 
 import { addCard } from '../../redux-flow/reducers/decks/actions-creators'
 
-class NewCard extends Component {
+class NewCard extends PureComponent {
   constructor () {
     super()
     this.state = {
