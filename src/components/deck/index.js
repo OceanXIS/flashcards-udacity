@@ -49,6 +49,7 @@ class Deck extends Component {
     const { navigation, decks } = this.props
 
     const deck = decks[deckTitle] || { title: '', questions: [] }
+    const noCards = deck.questions.length === 0
 
     return (
       <Container>
@@ -73,7 +74,7 @@ class Deck extends Component {
             full
             style={styles.input}
             onPress={() => navigation.navigate('Quiz', { deckTitle: deck.title })}
-            disabled={isRemoving}
+            disabled={isRemoving || noCards}
           >
             <Text>Start Quiz</Text>
           </Button>
