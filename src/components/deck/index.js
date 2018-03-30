@@ -66,7 +66,7 @@ class Deck extends Component {
             style={styles.input}
             onPress={() => navigation.navigate('NewCard', { deckTitle: deck.title })}
             disabled={isRemoving}
-            >
+          >
             <Text>Add Card</Text>
           </Button>
           <Button

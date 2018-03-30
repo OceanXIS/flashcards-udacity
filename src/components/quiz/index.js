@@ -1,22 +1,7 @@
 import React, { Component } from 'react'
-import { StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-
-import {
-  Container,
-  Content,
-  Text,
-  Button,
-  Body,
-  Badge,
-  Card,
-  CardItem,
-  H2,
-  H3,
-  Left,
-  Right
-} from 'native-base'
+import { Container, Content } from 'native-base'
 
 import If from '../common/if'
 import Summary from './summary'
@@ -33,13 +18,8 @@ class Quiz extends Component {
       cards: [],
       cardIndex: 0,
       totalCards: 0,
-      totalCorrectAnswers: 0,
+      totalCorrectAnswers: 0
     }
-    this.showAnswer = this.showAnswer.bind(this)
-    this.showQuestion = this.showQuestion.bind(this)
-    this.handleAnswer = this.handleAnswer.bind(this)
-    this.backToDeck = this.backToDeck.bind(this)
-    this.showSummaryOrNexQuestion = this.showSummaryOrNexQuestion.bind(this)
   }
 
   componentDidMount () {
@@ -52,15 +32,15 @@ class Quiz extends Component {
     })
   }
 
-  showAnswer () {
+  showAnswer = () => {
     this.setState({ showAnswer: true })
   }
 
-  showQuestion () {
+  showQuestion = () => {
     this.setState({ showAnswer: false })
   }
 
-  handleAnswer (type) {
+  handleAnswer = (type) => {
     if (type === 'correct') {
       this.setState({
         totalCorrectAnswers: this.state.totalCorrectAnswers + 1,
@@ -79,14 +59,14 @@ class Quiz extends Component {
     this.showSummaryOrNexQuestion()
   }
 
-  showSummaryOrNexQuestion () {
+  showSummaryOrNexQuestion = () => {
     const { cardIndex, totalCards } = this.state
-    if ((cardIndex + 1) >= totalCards ) {
+    if ((cardIndex + 1) >= totalCards) {
       this.setState({ showSummary: true, showAnswer: false })
     }
   }
 
-  backToDeck () {
+  backToDeck = () => {
     const backAction = NavigationActions.back({ key: null })
     this.props.navigation.dispatch(backAction)
   }
@@ -100,8 +80,7 @@ class Quiz extends Component {
   }
 
   render () {
-    const { cardIndex, cards, totalCards, showAnswer,
-       showSummary, showQuestion } = this.state
+    const { cardIndex, cards, totalCards, showAnswer, showSummary } = this.state
     const card = cards[cardIndex]
 
     return (

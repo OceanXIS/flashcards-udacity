@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.19.1",
     "jest-expo": "25.0.0",
     "react-native-scripts": "1.11.1",
     "react-test-renderer": "16.2.0",
-    "snazzy": "^7.1.1"
+    "snazzy": "^7.1.1",
+    "standard": "^11.0.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -15,8 +18,8 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js",
-    "lint": "standard --verbose | snazzy",
-    "lint:fix": "standard --fix"
+    "lint": "standard --parser=babel-eslint --verbose | snazzy",
+    "lint:fix": "standard --parser=babel-eslint --fix"
   },
   "jest": {
     "preset": "jest-expo"

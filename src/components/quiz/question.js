@@ -7,8 +7,7 @@ import {
   Card,
   CardItem,
   H2,
-  Left,
-  Right
+  Left
 } from 'native-base'
 
 const Question = ({

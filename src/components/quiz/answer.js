@@ -9,7 +9,6 @@ import {
   CardItem,
   H2,
   Left,
-  Right,
   View
 } from 'native-base'
 

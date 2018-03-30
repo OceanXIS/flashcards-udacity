@@ -40,7 +40,7 @@ const MainNavigator = StackNavigator({
     navigationOptions: {
       title: 'Quiz'
     }
-  },
+  }
 })
 
 export default MainNavigator
