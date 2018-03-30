@@ -26,14 +26,13 @@ class NewCard extends Component {
       answer: '',
       isSaving: false
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount () {
     this.setState({ deckTitle: this.props.navigation.state.params.deckTitle })
   }
 
-  handleSubmit () {
+  handleSubmit = () => {
     const { question, answer, deckTitle } = this.state
     if (question && answer) {
       this.setState({ isSaving: true })

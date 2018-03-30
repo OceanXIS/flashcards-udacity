@@ -24,10 +24,9 @@ class NewDeck extends Component {
       title: '',
       isSaving: false
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit () {
+  handleSubmit = () => {
     this.setState({ isSaving: true })
     if (this.state.title) {
       return this.props.addDeck(this.state.title)
