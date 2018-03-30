@@ -3,7 +3,7 @@ import { Notifications, Permissions } from 'expo'
 
 const NOTIFICATION_KEY = 'flash-cards:notifications'
 
-function createNotification() {
+function createNotification () {
   return {
     title: 'FlashCards',
     body: "don't forget to revise your decks today!",
@@ -16,12 +16,12 @@ function createNotification() {
   }
 }
 
-export function clearLocalNotification() {
+export function clearLocalNotification () {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
-export function setLocalNotification() {
+export function setLocalNotification () {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then(async data => {
@@ -43,7 +43,7 @@ export function setLocalNotification() {
     })
 }
 
-function getTimestampNoonNextDay() {
+function getTimestampNoonNextDay () {
   let tomorrow = new Date()
   tomorrow.setDate(tomorrow.getDate() + 1)
   tomorrow.setHours(12)
