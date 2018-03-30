@@ -71,7 +71,7 @@ class Quiz extends Component {
     this.props.navigation.dispatch(backAction)
   }
 
-  restartQuiz () {
+  restartQuiz = () => {
     this.setState({
       showSummary: false,
       cardIndex: 0,
