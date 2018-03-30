@@ -8,6 +8,8 @@ import Summary from './summary'
 import Question from './question'
 import Answer from './answer'
 
+import { clearLocalNotification, setLocalNotification } from '../../utils/notification'
+
 class Quiz extends Component {
   constructor () {
     super()
@@ -63,7 +65,13 @@ class Quiz extends Component {
     const { cardIndex, totalCards } = this.state
     if ((cardIndex + 1) >= totalCards) {
       this.setState({ showSummary: true, showAnswer: false })
+      this.resetLocalNotification()
     }
+  }
+
+  resetLocalNotification () {
+    clearLocalNotification()
+      .then(setLocalNotification)
   }
 
   backToDeck = () => {

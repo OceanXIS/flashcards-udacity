@@ -4,6 +4,7 @@ import MainNavigator from './src/components/main-navigator'
 import { Provider } from 'react-redux'
 
 import configureStore from './src/redux-flow/configure-store'
+import { setLocalNotification } from './src/utils/notification'
 
 const store = configureStore()
 
@@ -15,6 +16,7 @@ class App extends Component {
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
       Ionicons: require('@expo/vector-icons/fonts/Ionicons.ttf')
     })
+    setLocalNotification()
   }
   /* eslint-enable */
 
