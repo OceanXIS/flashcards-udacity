@@ -26,14 +26,13 @@ class NewDeck extends PureComponent {
     }
   }
 
-  handleSubmit = () => {
+  handleSubmit = async () => {
     this.setState({ isSaving: true })
-    if (this.state.title) {
-      return this.props.addDeck(this.state.title)
-        .then(() => {
-          this.setState({ title: '', isSaving: false })
-          alert('Deck added successfully')
-        })
+    const { title } = this.state
+    if (title) {
+      await this.props.addDeck(title)
+      this.setState({ title: '', isSaving: false })
+      return this.props.navigation.navigate('Deck', { deckTitle: title })
     }
     alert('Insert the title of the deck')
   }

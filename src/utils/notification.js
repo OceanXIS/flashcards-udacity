@@ -3,16 +3,14 @@ import { Notifications, Permissions } from 'expo'
 
 const NOTIFICATION_KEY = 'flash-cards:notifications'
 
-function createNotification () {
-  return {
-    title: 'FlashCards',
-    body: "don't forget to revise your decks today!",
-    android: {
-      sound: true,
-      priority: 'high',
-      sticky: false,
-      vibrate: true
-    }
+const notificationConfig = {
+  title: 'FlashCards',
+  body: "don't forget to revise your decks today!",
+  android: {
+    sound: true,
+    priority: 'high',
+    sticky: false,
+    vibrate: true
   }
 }
 
@@ -33,7 +31,7 @@ export function setLocalNotification () {
         Notifications.cancelAllScheduledNotificationsAsync()
 
         Notifications.scheduleLocalNotificationAsync(
-          createNotification(),
+          notificationConfig,
           {
             time: getTimestampNoonNextDay(),
             repeat: 'day'
